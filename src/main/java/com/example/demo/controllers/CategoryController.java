@@ -8,9 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -30,7 +28,13 @@ public class CategoryController {
         return categoryRepo.findAll();
     }
 
-    @GetMapping(value="/categories/id/{id}",params = { "page", "size" } )
+    @GetMapping("category/{id}")
+    public Category getCategoryById(@PathVariable int id) {
+        var category = categoryRepo.findById(Long.valueOf(id));
+        return category.get();
+    }
+
+    @GetMapping(value="/categories/{id}",params = { "page", "size" } )
     public Page<Book> getBooksByCategory(@PathVariable int id, @RequestParam(value="page",required=false) Integer page , @RequestParam(value = "size",required = false) Integer size) {
        var byId = categoryRepo.findById((long) id).get();
 //        var byName = categoryRepo.findAllByName(name).get();

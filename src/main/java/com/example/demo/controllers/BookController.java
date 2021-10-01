@@ -1,19 +1,17 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Book;
+import com.example.demo.models.Category;
 import com.example.demo.repos.BookRepo;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import com.example.demo.repos.ProductCategoryRepo;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 
@@ -23,28 +21,25 @@ public class BookController {
 
 
     private BookRepo bookRepo;
+    private ProductCategoryRepo categoryRepo;
 
-    public BookController(BookRepo bookRepo ) {
+    public BookController(BookRepo bookRepo, ProductCategoryRepo categoryRepo) {
         this.bookRepo = bookRepo;
 
+        this.categoryRepo = categoryRepo;
     }
 
     //the name should be page and size not p and s
 
 
-    @GetMapping("/books")
-    public Page<Book> getBooks(@PathParam("page")Integer page, @PathParam("size")Integer size)
 
+
+    @GetMapping("/books/latest/{categoryId}")
+    public List<Book> getLatestBooks(@PathVariable(name = "categoryId") int  id)
     {
-       return bookRepo.findAll(PageRequest.of(page,size));
-
-    }
-
-    @GetMapping("/mobile/books")
-    public List<Book> getBooks()
-
-    {
-       return bookRepo.findAll();
+        var category = categoryRepo.findById((long) id).get();
+        System.out.println("Category ===="+category);
+        return bookRepo.findFirst4ByCategories(category);
 
     }
 

@@ -30,7 +30,10 @@ public interface BookRepo extends JpaRepository<Book,Long> {
     Page<Book> findByCategories(Category category,Pageable pageable);
 
     Page<Book> findByNameContaining(@RequestParam("name") String name,Pageable pageable);
-/*
+
+    List<Book> findFirst4ByCategories(Category category);
+
+    /*
 
     @Query(value = "SELECT b.name FROM Book b Category c WHERE c.id = 1 ",nativeQuery = true)
     Page<Book> findAllByCategoryID1(Pageable pageable);
