@@ -1,17 +1,17 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Book;
-import com.example.demo.models.Category;
 import com.example.demo.repos.BookRepo;
 import com.example.demo.repos.ProductCategoryRepo;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 
@@ -32,7 +32,15 @@ public class BookController {
     //the name should be page and size not p and s
 
 
+@GetMapping("/books")
+public List<Book> getAllBooks(){
+        return bookRepo.findAll();
+}
 
+    @GetMapping( "books/filter/date")
+    public List<Book> getBooksByDate(){
+        return bookRepo.findAll(Sort.by(Sort.Direction.ASC, "dateCreated"));
+    }
 
     @GetMapping("/books/latest/{categoryId}")
     public List<Book> getLatestBooks(@PathVariable(name = "categoryId") int  id)
@@ -62,7 +70,8 @@ public class BookController {
 
     @GetMapping("/books/latest")
     public List<Book> getLatestBooks(){
-      return  this.bookRepo.findLatest();
+
+        return  this.bookRepo.findLatest();
 }
 
 

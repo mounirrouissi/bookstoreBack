@@ -1,18 +1,26 @@
 package com.example.demo.models;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
 @Entity
+ @Getter
+@ToString
+
 public class Book {
 
     @Id
@@ -20,6 +28,7 @@ public class Book {
     private Long id;
     private String name;
 
+    private Double ratings;
     @ManyToMany(mappedBy = "books")
     private Set<Author> authors = new HashSet<>();
 
@@ -34,11 +43,15 @@ public class Book {
     private String description;
     private String imageUrl;
     private int unitsInStock;
-    @CreationTimestamp
-    private Date dateCreated;
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date datePublished;
     @UpdateTimestamp
     private Date dateUpdated;
 
+    public void setDateCreated(Date dateCreated) {
+        this.datePublished = dateCreated;
+    }
 
     public Book() {
     }
@@ -47,68 +60,26 @@ public class Book {
         return categories;
     }
 
-    public Book(String name, Set<Category> categories, int price) {
-        this.name = name;
-        this.categories = categories;
-        this.price = BigDecimal.valueOf(price);
+    public Set<Author> getAuthors() {
+        return authors;
     }
 
-    public Book(Long id, String name, BigDecimal price, String description, String imageUrl, int unitsInStock, Date dateCreated, Date dateUpdated) {
-        this.id = id;
+
+
+    public Book(String name, BigDecimal price, String description, String imageUrl, int unitsInStock, Date dateCreated,
+                Date dateUpdated , Set<Category> categories, Double ratings)
+    {
+
         this.name = name;
         this.price = price;
         this.description = description;
         this.imageUrl = imageUrl;
         this.unitsInStock = unitsInStock;
-        this.dateCreated = dateCreated;
+        this.datePublished = dateCreated;
         this.dateUpdated = dateUpdated;
+        this.categories = categories;
+this.ratings=ratings;
     }
 
-    public Book(String name,BigDecimal price) {
-        this.name = name;
-        this.price = price;
-    }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", description='" + description + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public int getUnitsInStock() {
-        return unitsInStock;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public Date getDateUpdated() {
-        return dateUpdated;
-    }
 }

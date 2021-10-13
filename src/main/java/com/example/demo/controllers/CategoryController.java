@@ -9,10 +9,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("*")
 public class CategoryController {
     private ProductCategoryRepo categoryRepo;
     private BookRepo bookRepo;
@@ -24,12 +26,14 @@ public class CategoryController {
 
 // comment here again
     @RequestMapping(value = "/categories",method = RequestMethod.GET)
-    public List<Category> getCat() {
+    public List<Category> getCategory() {
+        System.out.println("categories called ");
         return categoryRepo.findAll();
     }
 
     @GetMapping("category/{id}")
     public Category getCategoryById(@PathVariable int id) {
+        System.out.println("someone called id catgory");
         var category = categoryRepo.findById(Long.valueOf(id));
         return category.get();
     }
@@ -53,6 +57,29 @@ public class CategoryController {
         return bookRepo.findByCategories(byId, PageRequest.of(page, size));
 
 
+    }
+
+
+
+    //for android retrofit
+
+
+    @GetMapping("/categories/{id}/bestseller")
+    public Set<Book> getCategoryBestsellerBooks(@PathVariable int id)
+    {
+        var category = categoryRepo.findById((long) id).get();
+        var bestCategory = categoryRepo.findByName("BestSellers");
+        System.out.println("passed id =="+id);
+
+        var bookList = category.getBooks();
+        Set<Book> list = bookList.stream().filter(b->b.getCategories().contains(bestCategory) ).collect(Collectors.toSet());
+
+
+        return list;
+    }
+    @GetMapping("/categories/latest")
+    public List<Category> getCategoryLastestBooks() {
+        return categoryRepo.findAll();
     }
 
 
