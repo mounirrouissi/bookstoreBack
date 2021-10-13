@@ -39,8 +39,10 @@ private List<Author> lis=new ArrayList<>();
 
 			List<Book> list=new ArrayList<>();
 
-
-
+HashSet<Category> set=new HashSet<>();
+set.add(category1);
+set.add(category2);
+set.add(bestSellerCat);
 var b= new Book("VanderBilt"
 		,BigDecimal.valueOf(10)
 		,"book about good peaple"
@@ -48,7 +50,7 @@ var b= new Book("VanderBilt"
 		,2
 		   ,new Date(2021-03-11)
 		   ,new Date(2021-03-11)
-		   ,Set.of(category1, category2,bestSellerCat)
+		   ,set
 
 		,4.4
 );
@@ -60,9 +62,13 @@ var b2= new Book("We are Family"
 		,2
 		   ,new Date(2021-03-11)
 		   ,new Date(2021-03-11)
-		   ,Set.of(category1, category2,bestSellerCat),
+		   ,set,
 		2.4
 		);
+
+		HashSet<Category> set1=new HashSet<>();
+		set.add(category1);
+		set.add(category2);
 var b3= new Book("The Dressmakers"
 		,BigDecimal.valueOf(10)
 		,"book about good peaple"
@@ -70,16 +76,22 @@ var b3= new Book("The Dressmakers"
 		,2
 		   ,new Date(2021-03-11)
 		   ,new Date(2021-03-11)
-		   ,Set.of(category1, category2)
+		   ,set1
 
 		,3.4
 		);
 
 
+		HashSet<Book> set2=new HashSet<>();
+		set2.add(b2);
+	HashSet<Book> set3=new HashSet<>();
+		set3.add(b2);
+		set3.add(b3);
+
 		List<Author> authors=new ArrayList<>();
 		var author = new Author("Monir" );
-		var Author1 = new Author("Joe Rogan",Set.of(b2));
-		var Author2 = new Author("Tim Ferris",Set.of(b2,b3));
+		var Author1 = new Author("Joe Rogan",set2);
+		var Author2 = new Author("Tim Ferris",set3);
 		author.addBooks(b);
 		authors.add(author);
 		authors.add(Author1);
