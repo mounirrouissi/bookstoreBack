@@ -16,7 +16,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    </properties>
+
+		<java.version>16</java.version>
+	</properties>
 	<dependencies>
 		<!--	<dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -123,10 +125,10 @@
 					</excludes>
 				</configuration>
 			</plugin>
-         <!--   <plugin>
+            <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
-&lt;!&ndash;                <version>${kotlin.version}</version>&ndash;&gt;
+<!--                <version>${kotlin.version}</version>-->
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -144,9 +146,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jvmTarget>1.8</jvmTarget>
+                    <jvmTarget>16</jvmTarget>
                 </configuration>
-            </plugin>-->
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -168,7 +170,7 @@
                     </execution>
                 </executions>
             </plugin>
-			<plugin>
+	<!--		<plugin>
 				<groupId>com.heroku.sdk</groupId>
 				<artifactId>heroku-maven-plugin</artifactId>
 				<version>2.0.3</version>
@@ -183,7 +185,7 @@
 						<web>java $JAVA_OPTS -jar ${project.build.directory}/${project.build.finalName}.jar</web>
 					</processTypes>
 				</configuration>
-			</plugin>        </plugins>
+			</plugin>   -->     </plugins>
 	</build>
 
 </project>
