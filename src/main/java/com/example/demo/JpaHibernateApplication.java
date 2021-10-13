@@ -5,6 +5,7 @@ import com.example.demo.models.Book;
 import com.example.demo.models.Category;
 import com.example.demo.repos.AuthorRepo;
 import com.example.demo.repos.BookRepo;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

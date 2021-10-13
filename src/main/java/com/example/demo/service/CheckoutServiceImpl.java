@@ -7,6 +7,7 @@ import com.example.demo.models.order.Order;
 import com.example.demo.models.order.OrderItem;
 import com.example.demo.models.order.ShipAddress;
 import com.example.demo.repos.CustomerRepo;
+import lombok.var;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

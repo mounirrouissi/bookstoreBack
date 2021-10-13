@@ -17,6 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 
+		<java.version>8</java.version>
 	</properties>
 	<dependencies>
 		<!--	<dependency>
@@ -168,7 +169,11 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+				<configuration>
+					<source>9</source>
+					<target>9</target>
+				</configuration>
+			</plugin>
 	<!--		<plugin>
 				<groupId>com.heroku.sdk</groupId>
 				<artifactId>heroku-maven-plugin</artifactId>
