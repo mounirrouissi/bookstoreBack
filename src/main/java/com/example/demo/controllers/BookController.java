@@ -1,8 +1,8 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Book;
-import com.example.demo.repos.BookRepo;
 import com.example.demo.repos.ProductCategoryRepo;
+import com.example.demo.service.BookService;
 import lombok.var;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -20,12 +19,11 @@ import java.util.stream.Stream;
 @CrossOrigin("*")
 public class BookController {
 
-
-    private BookRepo bookRepo;
+private BookService bookService;
     private ProductCategoryRepo categoryRepo;
 
-    public BookController(BookRepo bookRepo, ProductCategoryRepo categoryRepo) {
-        this.bookRepo = bookRepo;
+    public BookController(BookService bookService, ProductCategoryRepo categoryRepo) {
+        this.bookService = bookService;
 
         this.categoryRepo = categoryRepo;
     }
@@ -35,12 +33,12 @@ public class BookController {
 
 @GetMapping("/books")
 public List<Book> getAllBooks(){
-        return bookRepo.findAll();
+        return bookService.findAll();
 }
 
     @GetMapping( "books/filter/date")
     public List<Book> getBooksByDate(){
-        return bookRepo.findAll(Sort.by(Sort.Direction.ASC, "dateCreated"));
+        return bookService.findAll(Sort.by(Sort.Direction.ASC, "dateCreated"));
     }
 
     @GetMapping("/books/latest/{categoryId}")
@@ -48,21 +46,21 @@ public List<Book> getAllBooks(){
     {
         var category = categoryRepo.findById((long) id).get();
         System.out.println("Category ===="+category);
-        return bookRepo.findFirst4ByCategories(category);
+        return bookService.findFirst4ByCategories(category);
 
     }
 
    @GetMapping("/books/{id}")
     public Book getBook(@PathVariable(name = "id") int  id ){
-        System.out.println(bookRepo.findById(Long.valueOf(id)).get());
+        System.out.println(bookService.findById(Long.valueOf(id)));
 
-        Book book=bookRepo.findById(Long.valueOf(id)).get();
+        Book book=bookService.findById(Long.valueOf(id));
         return book ;
 
     }
     @GetMapping("/books/search/{text}")
     public Stream<Book> getBooks(@PathVariable(name = "text") String  text ){
-        var book=bookRepo.findByNameContaining(text, Pageable.unpaged()).get();
+        var book=bookService.findByNameContaining(text, Pageable.unpaged()).get();
         return book;
 
     }
@@ -72,7 +70,7 @@ public List<Book> getAllBooks(){
     @GetMapping("/books/latest")
     public List<Book> getLatestBooks(){
 
-        return  this.bookRepo.findLatest();
+        return  this.bookService.findLatest();
 }
 
 
