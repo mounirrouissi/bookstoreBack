@@ -27,7 +27,7 @@ public class FeedbackMailSender {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo("mounirrouissi2@gmail.com");
         message.setSubject("New feedback from " + name);
-        message.setSubject( feedbackbody);
+        message.setText( feedbackbody);
         message.setFrom(from);
 
         this.javaMailSender.send(message);
