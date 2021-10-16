@@ -38,7 +38,7 @@ public class BookService {
         return bookRepo.findByNameContaining(text, Pageable.unpaged());
     }
  public List<Book> findByNameContainingMobile(String text) {
-        return bookRepo.findByNameContaining(text);
+        return bookRepo.findByName(text);
     }
 
     public List<Book> findLatest() {
