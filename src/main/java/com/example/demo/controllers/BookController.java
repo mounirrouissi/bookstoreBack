@@ -6,11 +6,9 @@ import com.example.demo.service.BookService;
 import lombok.var;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -62,8 +60,8 @@ public List<Book> getAllBooks(){
     public Stream<Book> getBooks(@PathVariable(name = "text") String  text ){
         var book=bookService.findByNameContaining(text, Pageable.unpaged()).get();
         return book;
-
     }
+
 
 
 
@@ -72,6 +70,15 @@ public List<Book> getAllBooks(){
 
         return  this.bookService.findLatest();
 }
+
+//Mobile API
+
+    @GetMapping("/books/search")
+    public List<Book> getBooksForMobile(@RequestParam String  text ){
+        var book=bookService.findByNameContainingMobile(text);
+        return book;
+    }
+
 
 
 }

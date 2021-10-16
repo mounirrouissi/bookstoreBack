@@ -30,6 +30,7 @@ public interface BookRepo extends JpaRepository<Book,Long> {
     Page<Book> findByCategories(Category category,Pageable pageable);
 
     Page<Book> findByNameContaining(@RequestParam("name") String name,Pageable pageable);
+    List<Book> findByNameContaining(String name);
 
     List<Book> findFirst4ByCategories(Category category);
    @Query(value = "SELECT book_id FROM Book b JOIN b.categories c  where c.id IN  :ids"
