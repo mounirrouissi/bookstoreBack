@@ -41,7 +41,10 @@ public class BookService {
         return bookRepo.findByNameContaining(text);
     }
 
-    public List<Book> findLatest() {
+/*    public List<Book> findLatest() {
         return this.bookRepo.findLatest();
     }
+    public List<Book> findBest() {
+        return this.bookRepo.finBestByCategory();
+    }*/
 }

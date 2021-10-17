@@ -64,14 +64,20 @@ public List<Book> getAllBooks(){
 
 
 
-
+/*    //Mobile API
     @GetMapping("/books/latest")
     public List<Book> getLatestBooks(){
 
         return  this.bookService.findLatest();
 }
 
-//Mobile API
+  @GetMapping("/books/best")
+    public List<Book> getBestSellersBooks(){
+
+        return  this.bookService.findLatest();
+}*/
+
+
 
     @GetMapping("/books/search")
     public List<Book> getBooksForMobile(@RequestParam String  text ){

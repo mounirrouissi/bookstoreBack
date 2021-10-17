@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -65,7 +67,7 @@ public class CategoryController {
     //for android retrofit
 
 
-    @GetMapping("/categories/{id}/bestseller")
+    @GetMapping("/category/{id}/bestseller")
     public Set<Book> getCategoryBestsellerBooks(@PathVariable int id)
     {
         var category = categoryRepo.findById((long) id).get();
@@ -78,9 +80,13 @@ public class CategoryController {
 
         return list;
     }
-    @GetMapping("/categories/latest")
-    public List<Category> getCategoryLastestBooks() {
-        return categoryRepo.findAll();
+    @GetMapping("/category/{id}/latest")
+    public List<Book> getCategoryLastestBooks(@PathVariable int id) {
+        var category = categoryRepo.findById((long) id).get();
+        var bookList = category.getBooks();
+        List<Book> list = bookList.stream().sorted((b,b1)->b.getDatePublished().compareTo(b1.getDatePublished())).collect(Collectors.toList());
+
+return list;
     }
 
 

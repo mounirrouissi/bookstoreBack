@@ -22,7 +22,8 @@ public interface BookRepo extends JpaRepository<Book,Long> {
             "order by date_created \n" +
             "limit 10 ")
 
-    List<Book> findLatest();
+
+
 
     @Override
     List<Book> findAll();
@@ -36,6 +37,10 @@ public interface BookRepo extends JpaRepository<Book,Long> {
    @Query(value = "SELECT book_id FROM Book b JOIN b.categories c  where c.id IN  :ids"
            ,nativeQuery = true)
     List<Book> getCategoryBestsellerBooks(List<Long> ids);
+
+    @Query(value = "SELECT * FROM Book b JOIN b.categories c  where c.name IN :name"
+            ,nativeQuery = true)
+    List<Book> finBestByCategory(@Param("name") String name);
 
 
     /*

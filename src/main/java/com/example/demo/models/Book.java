@@ -43,7 +43,6 @@ public class Book {
     private String description;
     private String imageUrl;
     private int unitsInStock;
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date datePublished;
     @UpdateTimestamp
