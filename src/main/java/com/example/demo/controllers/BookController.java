@@ -28,9 +28,9 @@ private BookService bookService;
 
     //the name should be page and size not p and s
 
-    @GetMapping("/books/delete")
-    public void deleteBook(@RequestBody Book book){
-        this.bookService.delete(book);
+    @GetMapping("/books/delete/{id}")
+    public void deleteBook(@PathVariable("id ") Long id){
+        this.bookService.delete(id);
     }
 
 @GetMapping("/books")

@@ -15,8 +15,8 @@ public class BookService {
     private BookRepo bookRepo;
 
 
-    public void delete(Book book){
-        bookRepo.delete(book);
+    public void delete(Long id){
+        bookRepo.deleteById(id);
     }
 
     public void add(Book book){
