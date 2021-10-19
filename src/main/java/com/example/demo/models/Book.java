@@ -54,7 +54,13 @@ public class Book {
 
     public Book() {
     }
-@JsonIgnore
+
+    public Book(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    @JsonIgnore
     public Set<Category> getCategories() {
         return categories;
     }

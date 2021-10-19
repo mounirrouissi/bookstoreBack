@@ -10,25 +10,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.*;
-
-
 @Repository
-
 public interface BookRepo extends JpaRepository<Book,Long> {
-    @Query(nativeQuery = true,value = "select *\n" +
+    /*@Query(nativeQuery = true,value = "select *\n" +
             "from book\n" +
             "order by date_created \n" +
-            "limit 10 ")
-
-
-
-
+            "limit 10 ")*/
     @Override
     List<Book> findAll();
-
     Page<Book> findByCategories(Category category,Pageable pageable);
+//without paging for mobile
+
+    List<Book> findByCategoriesId(Category byId);
 
     Page<Book> findByNameContaining(@RequestParam("name") String name,Pageable pageable);
     List<Book> findByNameContaining(@RequestParam("name") String name);

@@ -7,6 +7,7 @@ import com.example.demo.repos.ProductCategoryRepo;
 import lombok.var;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -66,6 +67,19 @@ public class CategoryController {
 
     //for android retrofit
 
+
+
+    //for category books list after the user click category name
+    @GetMapping(value="/categories/{id}/books")
+    public List<Book> getBooksByCategory(@PathVariable int id) {
+        var byId = categoryRepo.findById((long) id).get();
+//        var byName = categoryRepo.findAllByName(name).get();
+        System.out.println(id +"category called here by id");
+
+        return byId.getBooks();
+    }
+
+    //for best-new framgments
 
     @GetMapping("/category/{id}/bestseller")
     public Set<Book> getCategoryBestsellerBooks(@PathVariable int id)

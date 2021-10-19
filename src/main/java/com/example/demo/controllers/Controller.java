@@ -22,23 +22,16 @@ public class Controller {
     private AuthorRepo authorRepo;
 private FeedbackMailSender feedbackMailSender;
     private BookRepo bookRepo;
-
-
     public Controller(AuthorRepo authorRepo, FeedbackMailSender feedbackMailSender, BookRepo bookRepo) {
         this.authorRepo = authorRepo;
         this.feedbackMailSender = feedbackMailSender;
         this.bookRepo = bookRepo;
 
     }
-
-
-
 @GetMapping("/authors")
     public Page<Author> getAuthor(@PathParam("page")Integer page,@PathParam("size")Integer size){
         return authorRepo.findAll(PageRequest.of(page,size, Sort.by(Sort.Direction.ASC,"name")));
 }
-
-
 
 @PostMapping("/feedback/")
     public void sendFeedback(@RequestBody Feedback feedback, BindingResult bindingResult) throws ValidationException {

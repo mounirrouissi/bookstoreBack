@@ -14,6 +14,17 @@ import java.util.List;
 public class BookService {
     private BookRepo bookRepo;
 
+
+    public void delete(Book book){
+        bookRepo.delete(book);
+    }
+
+    public void add(Book book){
+        bookRepo.save(book);
+    }
+
+
+
     public BookService(BookRepo bookRepo) {
         this.bookRepo = bookRepo;
     }
