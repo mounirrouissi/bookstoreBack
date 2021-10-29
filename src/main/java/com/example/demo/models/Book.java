@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -41,7 +42,9 @@ public class Book {
     private Set<Category> categories=new HashSet<>();
 
     private BigDecimal price;
+    @Column(columnDefinition="text", length=10485760)
     private String description;
+    @Column(columnDefinition="text", length=10485760)
     private String imageUrl;
     private int unitsInStock;
     @JsonFormat(pattern="yyyy-MM-dd")
