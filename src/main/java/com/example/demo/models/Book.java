@@ -4,6 +4,7 @@ package com.example.demo.models;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -20,7 +21,7 @@ import java.util.Set;
 @Entity
  @Getter
 @ToString
-
+@Setter
 public class Book {
 
     @Id
@@ -47,10 +48,6 @@ public class Book {
     private Date datePublished;
     @UpdateTimestamp
     private Date dateUpdated;
-
-    public void setDateCreated(Date dateCreated) {
-        this.datePublished = dateCreated;
-    }
 
     public Book() {
     }

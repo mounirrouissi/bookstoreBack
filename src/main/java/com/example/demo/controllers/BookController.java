@@ -9,7 +9,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -29,8 +31,17 @@ private BookService bookService;
     //the name should be page and size not p and s
 
     @GetMapping("/books/delete/{id}")
-    public void deleteBook(@PathVariable("id ") Long id){
+    public void deleteBook(@PathVariable("id") int id){
         this.bookService.delete(id);
+    }
+    @PutMapping("/books/update/{id}")
+    public void updateBook(@PathVariable(name = "id")Long id,@RequestBody Book book){
+        this.bookService.update(id,book);
+    }
+    @PostMapping("/books/add")
+    public void addBook(@RequestBody Book book){
+
+        this.bookService.add(book);
     }
 
 @GetMapping("/books")
@@ -38,9 +49,11 @@ public List<Book> getAllBooks(){
         return bookService.findAll();
 }
 
-    @GetMapping( "books/filter/date")
-    public List<Book> getBooksByDate(){
-        return bookService.findAll(Sort.by(Sort.Direction.ASC, "dateCreated"));
+    @PostMapping( "books/filter/date")
+    public List<Book> getBooksByDate(@RequestBody List<Book> books){
+        System.out.println("sort by date called");
+        return books.stream().sorted(Comparator.comparing(Book::getDatePublished)).collect(Collectors.toList());
+//        return bookService.sortByDatePublished();
     }
 
     @GetMapping("/books/latest/{categoryId}")
@@ -48,8 +61,9 @@ public List<Book> getAllBooks(){
     {
         var category = categoryRepo.findById((long) id).get();
         System.out.println("Category ===="+category);
-        return bookService.findFirst4ByCategories(category);
-
+        var books =category.getBooks().stream().sorted(Comparator.comparing(Book::getDatePublished)).collect(Collectors.toList());
+//        return bookService.findLatestByCategory(category);
+return books;
     }
 
    @GetMapping("/books/{id}")
