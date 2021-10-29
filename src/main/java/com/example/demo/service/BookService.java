@@ -31,8 +31,8 @@ public class BookService {
     }
 
 
-    public ResponseEntity<Book> update(Long id,Book book){
-        Optional<Book> dbBook = bookRepo.findById(book.getId());
+    public ResponseEntity<Book> update(int id,Book book){
+        Optional<Book> dbBook = bookRepo.findById((long) id);
         if(dbBook.isPresent())
         {
             dbBook.get().setName(book.getName());

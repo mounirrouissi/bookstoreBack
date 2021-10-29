@@ -6,7 +6,10 @@ import com.example.demo.service.BookService;
 import lombok.var;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.websocket.server.PathParam;
 import java.util.Comparator;
@@ -30,24 +33,28 @@ private BookService bookService;
 
     //the name should be page and size not p and s
 
+    //region Crud
     @DeleteMapping("/books/delete/{id}")
     public void deleteBook(@PathVariable("id") int id){
         this.bookService.delete(id);
     }
     @PutMapping("/books/update/{id}")
-    public void updateBook(@PathVariable(name = "id")Long id,@RequestBody Book book){
+    public void updateBook(@PathVariable(name = "id")int id,@RequestBody Book book){
+        System.out.println("Updated Called");
         this.bookService.update(id,book);
     }
-    @PostMapping("/books/add")
+    @RequestMapping(value = "/books/add" )
     public void addBook(@RequestBody Book book){
-
+        System.out.println("FIlename==="+book.getImageUrl());
         this.bookService.add(book);
     }
 
-@GetMapping("/books")
-public List<Book> getAllBooks(){
+    @GetMapping("/books")
+    public List<Book> getAllBooks(){
         return bookService.findAll();
-}
+    }
+
+    //endregion
 
     @PostMapping( "books/filter/date")
     public List<Book> getBooksByDate(@RequestBody List<Book> books){

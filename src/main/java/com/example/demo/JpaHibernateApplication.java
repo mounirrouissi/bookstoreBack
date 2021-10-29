@@ -50,7 +50,7 @@ HashSet<Category> bestSellerCatSet=new HashSet<>();
 var b= new Book("VanderBilt"
 		,BigDecimal.valueOf(10)
 		,"book about good peaple"
-		,"../.././../assets/images/books/b (1).jpg"
+		,"https://firebasestorage.googleapis.com/v0/b/bookstore-4337f.appspot.com/o/b%20(6).jpg?alt=media&token=baa3adf9-dd6f-4bea-852a-5eb12f0236f1"
 		,2
 		   ,new Date(2020,03,11)
 		   ,new Date(2021-03-11)
