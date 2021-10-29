@@ -30,7 +30,7 @@ private BookService bookService;
 
     //the name should be page and size not p and s
 
-    @GetMapping("/books/delete/{id}")
+    @DeleteMapping("/books/delete/{id}")
     public void deleteBook(@PathVariable("id") int id){
         this.bookService.delete(id);
     }
